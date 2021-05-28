@@ -113,7 +113,31 @@ namespace BulStatRegister
 			Console.WriteLine(new String('-',50));
 			Console.Write("Въведете БУЛСТАТ на фирма: ");
 			string bulStat = Console.ReadLine();
-			
+			if(companies.ContainsKey(bulStat))
+			{
+				Console.WriteLine("Изтрихте фирма {0} с БУЛСТАТ {1}", companies[bulStat], bulStat);
+				companies.Remove(bulStat);
+				PrintCompaniesCount();
+			}
+		}
+		public void ClearAll()
+		{
+			Console.WriteLine("Изтриване на всички фирми в регистъра");
+			Console.WriteLine(new String('-',50));
+			Console.WriteLine("Това действие ще изтрие всички записи!");
+			bool clearOK = false;
+			Console.Write("Моля, потвърдете (да/не): ");
+			if(Console.ReadLine() != "да") 
+			{
+				Console.WriteLine("Действието е отказано!");
+				return;
+			}
+			foreach(KeyValuePair<string,string> bulstatName in companies)
+			{
+				companies.Remove(companies[bulstatName.Key]);
+			}
+			Console.WriteLine("Успешно изтрихте всички записи!");
+			PrintCompaniesCount();
 		}
 	}
 }
